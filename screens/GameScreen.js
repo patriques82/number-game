@@ -3,6 +3,9 @@ import { StyleSheet, View, Text } from "react-native";
 
 import Title from "../components/Title";
 import NumberContainer from "../components/NumberContainer";
+import Card from "../components/Card";
+import InstructionText from "../components/IntstructionText";
+import PrimaryButton from "../components/PrimaryButton";
 
 function generateRandomNumber(min, max, exclude) {
   const number = Math.floor(Math.random() * (max - min)) + min;
@@ -19,7 +22,20 @@ const GameScreen = ({ userChoice, onGuess, onGameOver }) => {
   return (
     <View style={styles.container}>
       <Title>Opponents Guess</Title>
-      <NumberContainer>{userChoice}</NumberContainer>
+      <NumberContainer>{guess}</NumberContainer>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          Higher or Lower?
+        </InstructionText>
+        <View style={styles.controls}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton>-</PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton>+</PrimaryButton>
+          </View>
+        </View>
+      </Card>
     </View>
   );
 };
@@ -28,6 +44,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 28,
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  controls: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
 
