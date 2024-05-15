@@ -16,8 +16,27 @@ function generateRandomNumber(min, max, exclude) {
   }
 }
 
+let minBoundary = 1;
+let maxBoundary = 100;
+
 const GameScreen = ({ userChoice, onGuess, onGameOver }) => {
   const [guess, setGuess] = useState(generateRandomNumber(1, 100, userChoice));
+
+  useEffect(() => {
+    if (userChoice === guess) {
+      onGameOver();
+    }
+  }, [guess]);
+
+  function guessNumber(sign) {
+    if (sign === "+") {
+      minBoundary = guess + 1;
+    } else {
+      maxBoundary = guess;
+    }
+    setGuess(generateRandomNumber(minBoundary, maxBoundary, guess));
+    onGuess();
+  }
 
   return (
     <View style={styles.container}>
@@ -29,10 +48,20 @@ const GameScreen = ({ userChoice, onGuess, onGameOver }) => {
         </InstructionText>
         <View style={styles.controls}>
           <View style={styles.buttonContainer}>
-            <PrimaryButton>-</PrimaryButton>
+            <PrimaryButton
+              onPress={() => guessNumber("-")}
+              style={styles.large}
+            >
+              -
+            </PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
-            <PrimaryButton>+</PrimaryButton>
+            <PrimaryButton
+              onPress={() => guessNumber("+")}
+              style={styles.large}
+            >
+              +
+            </PrimaryButton>
           </View>
         </View>
       </Card>
@@ -54,6 +83,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  large: {
+    fontSize: 20,
   },
 });
 
