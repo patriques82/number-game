@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import PrimaryButton from "./components/PrimaryButton";
 import StartGameScreen from "./screens/StartGameScreen";
+import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/Colors";
 
 export default function App() {
