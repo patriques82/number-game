@@ -1,12 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import PrimaryButton from "./components/PrimaryButton";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/Colors";
+import GameOverScreen from "./screens/GameOverScreen";
 
 export default function App() {
   const [userChoice, setUserChoice] = useState(null); // valt nummer
@@ -19,7 +20,7 @@ export default function App() {
 
   let screen = <StartGameScreen onChooseNumber={chooseNumberHandler} />;
 
-  if (userChoice) {
+  if (userChoice && !gameOver) {
     screen = (
       <GameScreen
         userChoice={userChoice}
@@ -27,6 +28,10 @@ export default function App() {
         onGameOver={() => setGameOver(true)}
       />
     );
+  }
+
+  if (gameOver) {
+    screen = <GameOverScreen userChoice={userChoice} rounds={rounds} />;
   }
 
   return (

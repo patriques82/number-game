@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
 import Title from "../components/Title";
@@ -34,6 +34,16 @@ const GameScreen = ({ userChoice, onGuess, onGameOver }) => {
     } else {
       maxBoundary = guess;
     }
+    console.log(
+      "min",
+      minBoundary,
+      "max",
+      maxBoundary,
+      "guess",
+      guess,
+      "userChoice",
+      userChoice
+    );
     setGuess(generateRandomNumber(minBoundary, maxBoundary, guess));
     onGuess();
   }
